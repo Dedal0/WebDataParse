@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Leaflet Ejemplo de uso HHLIA</title>
+	<meta charset="utf-8" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="leaflet.css" />
+</head>
+<body>
+	<div id="map" style="width: 700px; height: 500px"></div>
+
+	<script src="leaflet.js"></script>
+	<script>
+
+		var map = L.map('map').setView([-12.04436, -77.03339], 13); // Fijar latitud y logitud del mapa
+
+		L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
+			maxZoom: 18,
+			attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+				'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+				'Imagery © <a href="http://mapbox.com">Mapbox</a> - ' +
+				'By Dedalo From <a href="http://hhlima.info">HacksHackersLima</a>', 
+			id: 'examples.map-i86knfo3'
+		}).addTo(map); // Disclaimer
+
+
+		L.marker([-12.04436, -77.03339]).addTo(map)
+			.bindPopup("<b>Marcador de Lugar</b><br >Con texto incluye <marquee>html</marquee>.").openPopup(); // marcador de Lugar
+
+		L.circle([-12.08011, -76.99614], 600, {
+			color: 'red',
+			fillColor: '#f03',
+			fillOpacity: 0.5
+		}).addTo(map).bindPopup("I am a circle."); // circulo para marcar un area
+
+
+		var popup = L.popup();
+
+		function onMapClick(e) {
+			popup
+				.setLatLng(e.latlng)
+				.setContent("La latitud y longitud del lucar clickeado es: " + e.latlng.toString())
+				.openOn(map);
+		}
+
+		map.on('click', onMapClick); // Mostrar la lat y long de un lugar cuando lo clickees
+
+	</script>
+</body>
+</html>
+
